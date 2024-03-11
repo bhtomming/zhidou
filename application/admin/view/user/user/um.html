@@ -1,0 +1,64 @@
+<form id="um-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+    {:token()}
+    <input id="c-user_id" class="form-control" type="hidden" value="{$user_id}" name="row[user_id]">
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">当前用户：</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-phone" class="form-control" type="text" value="{$username}{$realname}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">总金额为：</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-phone" class="form-control"  type="text" value="{$year}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">已提现金额为：</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-phone" class="form-control"  type="text" value="{$sex}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">可提现金额（余额）：</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-phone" class="form-control"  type="text" value="{$year-$sex}">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">变更金额：</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="select" name="row[select]" >
+                <option value="0">增加+</option>
+                <option value="1" >减少-</option>
+            </select>
+            <input type="text" id="c-um" placeholder="" value="" name="row[um]"  class="input-text" style="width: 10%;ime-mode:disabled;">（必填）
+                               
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">备注：</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-bz" class="form-control"  type="text" value="" name="row[bz]">
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" onClick="add()" class="btn btn-primary btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+		
+	function add(){
+		
+		var um = $('#c-um').val();
+		if(um=""){
+			alert("金额不能为空");
+			return;
+		}
+    }
+	</script>	

@@ -1,0 +1,445 @@
+
+
+
+<!DOCTYPE html>
+<html class="mdd-page">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>我的团队</title>
+    <meta name="charset" content="utf-8">
+    <meta name="viewport"
+          content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>个人中心</title>
+    <meta http-equiv="Cache-Control" content="must-revalidate,no-cache">
+    <link rel="stylesheet" type="text/css" href="/css/shoujisc.css">
+
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/app_user.css">
+
+    <style>
+        #wrapper {
+            width: 100%;
+            margin: 10 auto;
+            height: 51px;
+        }
+
+        #container {
+            width: 100%;
+            height: 50px;
+        }
+
+        #container #left, #container #content, #container #right {
+            float: left;
+            text-align: center;
+            font-size: 10px;
+            margin-top: 10px;
+            color: #ef0d0d;
+        }
+
+        #left {
+            margin-left: 8px;
+            background: #fff;
+            height: 20px;
+            width: 40%;
+            padding: 5px;
+        }
+
+        #content {
+            margin-left: 8px;
+            background: #fff;
+            height: 20px;
+            width: 1%;
+        }
+
+        #right {
+            margin-left: 8px;
+            background: #fff;
+            height: 20px;
+            width: 40%;
+            padding: 5px;
+        }
+
+
+        .input_control {
+            width: 360px;
+            margin: 20px auto;
+        }
+
+        input[type="text"], input[type="password"], #btn1, #btn2 {
+            box-sizing: border-box;
+            text-align: left;
+            font-size: 1.0em;
+            height: 2.7em;
+            border-radius: 4px;
+            border: 1px solid #c8cccf;
+            color: #6a6f77;
+            -web-kit-appearance: none;
+            -moz-appearance: none;
+            display: block;
+            outline: 0;
+            padding: 0 1em;
+            text-decoration: none;
+            width: 100%;
+        }
+
+        input[type="text"]:focus {
+            border: 1px solid #ff7496;
+        }
+
+        #container1 {
+            width: 100%;
+            height: 100px;
+        }
+
+        #container1 #left1 {
+            float: left;
+            text-align: center;
+            font-size: 10px;
+            color: #ef0d0d;
+        }
+
+        #left1 {
+            margin-left: 8px;
+            margin-top: 15px;
+            background: #fff;
+            height: 20px;
+            width: 90%;
+            padding: 5px;
+        }
+
+        #right1 {
+            margin-left: 8px;
+            background: #fff;
+            height: 20px;
+            width: 40%;
+            padding: 5px;
+        }
+
+        .input_control {
+            width: 360px;
+            margin: 20px auto;
+        }
+
+        .orange {
+
+            color: #fef4e9;
+
+            border: solid 1px #da7c0c;
+
+            background: #f78d1d;
+
+            background: -webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
+
+            background: -moz-linear-gradient(top, #faa51a, #f47a20);
+
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');
+
+        }
+
+        .orange:hover {
+
+            background: #f47c20;
+
+            background: -webkit-gradient(linear, left top, left bottom, from(#f88e11), to(#f06015));
+
+            background: -moz-linear-gradient(top, #f88e11, #f06015);
+
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f88e11', endColorstr='#f06015');
+
+        }
+
+        .orange:active {
+
+            color: #fcd3a5;
+
+            background: -webkit-gradient(linear, left top, left bottom, from(#f47a20), to(#faa51a));
+
+            background: -moz-linear-gradient(top, #f47a20, #faa51a);
+
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f47a20', endColorstr='#faa51a');
+
+        }
+
+
+        .orange1 {
+
+            color: #fef4e9;
+
+            border: solid 1px #da7c0c;
+
+            background: #f78d1d;
+
+            background: -webkit-gradient(linear, left top, left bottom, from(#c09a5b21), to(#f47a20));
+
+            background: -moz-linear-gradient(top, #faa51a, #f47a20);
+
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');
+
+        }
+
+        .orange1:hover {
+
+            background: #f47c20;
+
+            background: -webkit-gradient(linear, left top, left bottom, from(#f88e11), to(#f06015));
+
+            background: -moz-linear-gradient(top, #f88e11, #f06015);
+
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f88e11', endColorstr='#f06015');
+
+        }
+
+        .orange1:active {
+
+            color: #fcd3a5;
+
+            background: -webkit-gradient(linear, left top, left bottom, from(#9b907e2b), to(#faa51a));
+
+            background: -moz-linear-gradient(top, #f47a20, #faa51a);
+
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f47a20', endColorstr='#faa51a');
+
+        }
+
+
+        .button {
+
+            display: inline-block;
+
+            zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */
+
+            *display: inline;
+
+            vertical-align: baseline;
+
+            margin: 0 2px;
+            width: 100px;
+            height: 40px;
+
+            outline: none;
+
+            cursor: pointer;
+
+            text-align: center;
+
+            text-decoration: none;
+
+            font: 18px/100% Arial, Helvetica, sans-serif;
+
+
+            text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
+
+            -webkit-border-radius: .5em;
+
+            -moz-border-radius: .5em;
+
+            border-radius: .5em;
+
+            -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+
+            -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+
+            box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+
+        }
+
+        .button:hover {
+
+            text-decoration: none;
+
+        }
+
+        .button:active {
+
+            position: relative;
+
+            top: 1px;
+
+        }
+
+        .button4 {
+            background-color: #d0a16bdb; /* Green */
+            border: none;
+            color: white;
+
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+            width: 70px;
+            height: 30px;
+        }
+
+        .button5 {
+            background-color: #d0a16bdb;
+            color: black;
+            border: 1px solid #d0a16bdb;
+        }
+
+
+        #container4 {
+            width: 100%;
+            height: 50px;
+        }
+
+        #container4 #left4, #container4 #content4, #container4 #right4 {
+            float: left;
+            text-align: center;
+            font-size: 10px;
+            margin-top: 10px;
+            color: #ef0d0d;
+        }
+
+        #left4 {
+            margin-left: 2px;
+            background: #fff;
+            height: 20px;
+            width: 20%;
+            padding: 1px;
+        }
+
+        #content4 {
+            margin-left: 0px;
+            background: #fff;
+            height: 20px;
+            width: 10%;
+        }
+
+        #right4 {
+            margin-left: 1px;
+            background: #fff;
+            height: 20px;
+            width: 20%;
+            padding: 1px;
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+<div class="sjsc-title2">
+    <h3 class="sjsc-t2l">我的团队</h3>
+    <a href="index" class="sjsc-t2r"><img src="/images/back.png" alt="" style="width:20px;height: 20px;padding-top: 11px;padding-left: 5px"/></a>
+
+</div>
+<div id="container1">
+    <div id="left1">
+        <input type="button" class="button orange" onClick="history.go(-1)" width="30px;" value="{$user.realname}"
+               placeholder="请输入新办的号码"/>
+
+    </div>
+    <div id="left1">{$user.username}/{$user.status}/({$user.totals})</div>
+</div>
+<div style="background-color: #F3F3F3;height: 1px"></div>
+
+
+<div id="container">
+    
+    {foreach $list as $key=>$val}
+    <?php if($key == 0){?>
+    <div id="left">
+        <input type="button" style="height:35px;" class="button orange1" onClick="add({$val.user_id},{$val.top_openid})"
+               width="30px;" value="{$val.realname}"/>
+    </div>
+    <?php }?>
+    
+    <?php if($key == 1){?>
+    <div id="content">|</div>
+    <div id="right">
+        <input type="button" style="height:35px;" class="button orange1" onClick="add({$val.user_id},{$val.top_openid})"
+               width="30px;" value="{$val.realname}"/>
+    </div>
+    <?php }?>
+    {/foreach}
+    {foreach $list as $key=>$val}
+    <?php if($key == 0){?>
+        <div id="left">{$val.username}/{$val.status}  /({$val.totals})</div>
+    <?php }?>
+    
+    <?php if($key == 1){?>
+    <div id="content"></div>
+    <div id="right">{$val.username}/ {$val.status}/({$val.totals})</div>
+    <?php }?>
+    {/foreach}
+</div>
+
+
+<div id="container4">
+    
+    <?php if(!empty($list[0]['son'][0])){?>
+        <div id="left4">
+                <div style="weight:20%"><input type="button" class="button4 button5"
+                                               onClick="add({$list[0]['son'][0]['user_id']},{$list[0]['son'][0]['top_openid']})" width="30px;"
+                                               value="{$list[0]['son'][0]['realname']}({$list[0]['son'][0]['totals']})"/></div>
+            </div>
+    <?php }?>
+    
+    <?php if(!empty($list[0]['son'][1])){?>
+        <div id="left4">
+            
+                <div style="weight:20%"><input type="button" class="button4 button5"
+                                               onClick="add({$list[0]['son'][1]['user_id']},{$list[0]['son'][1]['top_openid']})" width="30px;"
+                                               value="{$list[0]['son'][1]['realname']}({$list[0]['son'][0]['totals']})"/></div>
+        </div>
+    <?php } ?>
+    
+    
+    
+    <?php if(!empty($list[1]['son'][0])){?>
+    <div id="content4">|</div>
+    <div id="right4">
+            <div style="weight:20%"><input type="button" class="button4 button5"
+                                           onClick="add({$list[1]['son'][0]['user_id']},{$list[1]['son'][0]['top_openid']})" width="30px;"
+                                           value="{$list[1]['son'][0]['realname']}({$list[0]['son'][0]['totals']})"/></div>
+        
+    </div>
+    <?php }?>
+    
+    <?php if(!empty($list[1]['son'][1])){ ?>
+    
+    <div id="right4">
+            <div style="weight:20%"><input type="button" class="button4 button5"
+                                           onClick="add({$list[1]['son'][1]['user_id']},{$list[1]['son'][1]['top_openid']})" width="30px;"
+                                           value="{$list[1]['son'][1]['realname']}({$list[0]['son'][0]['totals']})"/></div>
+    </div>
+    <?php } ?>
+</div>
+
+<div class="input_control" style="margin-top:215px;">
+    输入手机号搜索
+    <input type="text" id="phone" class="form_input" placeholder=""/>
+</div>
+
+<div class="input_control" style="margin-left:200px">
+    <input type="button" class="button orange" onClick="seach()" width="350px;" value="搜索"
+           placeholder="请输入新办的号码"/>
+
+</div>
+<script src="/js/jquery.js"></script>
+
+<script type="text/javascript">
+    function add(oid, xid) {
+        if (oid == "") {
+            window.location.href = "teamadd.html?xid=" + xid;
+        } else {
+            window.location.href = "team.html?user_id=" + oid;
+        }
+    }
+    function seach() {
+        var phone = $('#phone').val();
+        window.location.href = "team?phone=" + phone;
+        
+    }
+
+
+</script>
+
+
+</body>
+</html>

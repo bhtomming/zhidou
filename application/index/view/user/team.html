@@ -1,0 +1,656 @@
+
+
+
+<!DOCTYPE html>
+<html class="mdd-page">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>我的团队</title>
+    <meta name="charset" content="utf-8">
+    <meta name="viewport"
+          content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   
+    <meta http-equiv="Cache-Control" content="must-revalidate,no-cache">
+    <link rel="stylesheet" type="text/css" href="/assets/css/app/shoujisc.css">
+
+    <link rel="stylesheet" href="/assets/css/app/common.css">
+    <link rel="stylesheet" href="/assets/css/app/app_user.css">
+    <script src="/assets/js/jquery.js"></script>
+
+
+
+    <style>
+        #wrapper {
+            width: 100%;
+            margin: 10 auto;
+            height: 51px;
+        }
+
+        #container {
+            width: 100%;
+            height: 50px;
+        }
+
+        #container #left, #container #content, #container #right {
+            float: left;
+            text-align: center;
+            font-size: 10px;
+            margin-top: 10px;
+            color: #ef0d0d;
+        }
+
+        #left {
+            margin-left: 8px;
+            background: #fff;
+            height: 20px;
+            width: 40%;
+            padding: 5px;
+        }
+
+        #content {
+            margin-left: 8px;
+            background: #fff;
+            height: 20px;
+            width: 1%;
+        }
+
+        #right {
+            margin-left: 8px;
+            background: #fff;
+            height: 20px;
+            width: 40%;
+            padding: 5px;
+        }
+
+
+        .input_control {
+            width: 360px;
+            margin: 20px auto;
+        }
+
+        input[type="text"], input[type="password"], #btn1, #btn2 {
+            box-sizing: border-box;
+            text-align: left;
+            font-size: 1.0em;
+            height: 2.7em;
+            border-radius: 4px;
+            border: 1px solid #c8cccf;
+            color: #6a6f77;
+            -web-kit-appearance: none;
+            -moz-appearance: none;
+            display: block;
+            outline: 0;
+            padding: 0 1em;
+            text-decoration: none;
+            width: 100%;
+        }
+
+        input[type="text"]:focus {
+            border: 1px solid #ff7496;
+        }
+
+        #container1 {
+            width: 100%;
+            height: 100px;
+        }
+
+        #container1 #left1 {
+            float: left;
+            text-align: center;
+            font-size: 10px;
+            color: #ef0d0d;
+        }
+
+        #left1 {
+            margin-left: 8px;
+            margin-top: 15px;
+            background: #fff;
+            height: 20px;
+            width: 90%;
+            padding: 5px;
+        }
+
+        #right1 {
+            margin-left: 8px;
+            background: #fff;
+            height: 20px;
+            width: 40%;
+            padding: 5px;
+        }
+
+        .input_control {
+            width: 360px;
+            margin: 20px auto;
+        }
+
+        .orange {
+
+            color: #fef4e9;
+
+            border: solid 1px #da7c0c;
+
+            background: #f78d1d;
+
+            background: -webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
+
+            background: -moz-linear-gradient(top, #faa51a, #f47a20);
+
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');
+
+        }
+
+        .orange:hover {
+
+            background: #f47c20;
+
+            background: -webkit-gradient(linear, left top, left bottom, from(#f88e11), to(#f06015));
+
+            background: -moz-linear-gradient(top, #f88e11, #f06015);
+
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f88e11', endColorstr='#f06015');
+
+        }
+
+        .orange:active {
+
+            color: #fcd3a5;
+
+            background: -webkit-gradient(linear, left top, left bottom, from(#f47a20), to(#faa51a));
+
+            background: -moz-linear-gradient(top, #f47a20, #faa51a);
+
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f47a20', endColorstr='#faa51a');
+
+        }
+
+
+        .orange1 {
+
+            color: #fef4e9;
+
+            border: solid 1px #da7c0c;
+
+            background: #f78d1d;
+
+            background: -webkit-gradient(linear, left top, left bottom, from(#c09a5b21), to(#f47a20));
+
+            background: -moz-linear-gradient(top, #faa51a, #f47a20);
+
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');
+
+        }
+
+        .orange1:hover {
+
+            background: #f47c20;
+
+            background: -webkit-gradient(linear, left top, left bottom, from(#f88e11), to(#f06015));
+
+            background: -moz-linear-gradient(top, #f88e11, #f06015);
+
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f88e11', endColorstr='#f06015');
+
+        }
+
+        .orange1:active {
+
+            color: #fcd3a5;
+
+            background: -webkit-gradient(linear, left top, left bottom, from(#9b907e2b), to(#faa51a));
+
+            background: -moz-linear-gradient(top, #f47a20, #faa51a);
+
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f47a20', endColorstr='#faa51a');
+
+        }
+
+
+        .button {
+
+            display: inline-block;
+
+            zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */
+
+            *display: inline;
+
+            vertical-align: baseline;
+
+            margin: 0 2px;
+            width: 100px;
+            height: 40px;
+
+            outline: none;
+
+            cursor: pointer;
+
+            text-align: center;
+
+            text-decoration: none;
+
+            font: 18px/100% Arial, Helvetica, sans-serif;
+
+
+            text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
+
+            -webkit-border-radius: .5em;
+
+            -moz-border-radius: .5em;
+
+            border-radius: .5em;
+
+            -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+
+            -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+
+            box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+
+        }
+
+        .button:hover {
+
+            text-decoration: none;
+
+        }
+
+        .button:active {
+
+            position: relative;
+
+            top: 1px;
+
+        }
+
+        .button4 {
+            background-color: #d0a16bdb; /* Green */
+            border: none;
+            color: white;
+
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+            width: 70px;
+            height: 30px;
+        }
+
+        .button5 {
+            background-color: #d0a16bdb;
+            color: black;
+            border: 1px solid #d0a16bdb;
+        }
+
+
+        #container4 {
+            width: 100%;
+            height: 50px;
+        }
+
+        #container4 #left4, #container4 #content4, #container4 #right4 {
+            float: left;
+            text-align: center;
+            font-size: 10px;
+            margin-top: 10px;
+            color: #ef0d0d;
+        }
+
+        #left4 {
+            margin-left: 2px;
+            background: #fff;
+            height: 20px;
+            width: 20%;
+            padding: 1px;
+             display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        #content4 {
+            margin-left: 0px;
+            background: #fff;
+            height: 20px;
+            width: 10%;
+        }
+
+        #right4 {
+            margin-left: 1px;
+            background: #fff;
+            height: 20px;
+            width: 20%;
+            padding: 1px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+
+        .left4 , .right4{
+           
+            width: 50%;
+        }
+
+
+        .left4_btn, .right4_btn{
+            width: 50%;
+        }
+
+    </style>
+</head>
+<body>
+
+
+<div class="sjsc-title2">
+    <h3 class="sjsc-t2l">我的团队</h3>
+    <a href="javascript:;" class="sjsc-t2r" onclick="team_tool.back()"><img src="/assets/img/back.png" alt=""
+                                                style="width:20px;height: 20px;padding-top: 11px;padding-left: 5px"/></a>
+
+</div>
+
+
+<div id="container1">
+    <div id="left1">
+        <input type="button" class="button orange" onClick="history.go(-1)" width="30px;" value="{$users.realname}"/>
+
+    </div>
+    <div id="left1">{$users.username}/{if $users.status >=1 && $users.status <=5 || $users.status == 1001}创客{elseif $users.status >=6 && $users.status <=10 || $users.status == 1002}店长{elseif $users.status >=11 && $users.status <=20 || $users.status == 1003}经理{elseif $users.status >=21 && $users.status <=30 || $users.status == 1004}总监{elseif $users.status >=31 && $users.status <=40 || $users.status == 1005}总裁{/if}/({$users.count})</div>
+</div>
+<div style="background-color: #F3F3F3;height: 1px"></div>
+
+
+
+
+
+<div id="container">
+    
+    
+    {if isset($result[0])}
+    
+    <div id="left">
+        <input type="button" style="height:35px;30px;" class="button orange1" onClick="team_tool.add('{$result[0]['user_id']}','{$users.user_id}')"  value="{if $result[0]['isorder']==1}{$result[0]['realname']}{else}-{/if}"/>
+    </div>
+        
+    {/if}
+    
+    
+     <div id="content">|</div>
+     
+     {if isset($result[1])}
+    
+    <div id="right">
+        <input type="button" style="height:35px;30px;" class="button orange1" onClick="team_tool.add('{$result[1]['user_id']}','{$users.user_id}')"  value="{if $result[1]['isorder']==1}{$result[1]['realname']}{else}-{/if}"/>
+    </div>
+        
+    {/if}
+     
+     
+    {if !empty($result[0])}
+
+    <div id="left">{$result[0]['username']}//({$result[0]['count']})</div>
+    
+    {/if}
+    
+    <div id="content"></div>
+    
+      
+    {if !empty($result[1])}
+
+    <div id="left">{$result[1]['username']}//({$result[1]['count']})</div>
+    
+    {/if}
+
+
+
+</div>
+
+
+
+
+
+<div id="container4">
+    
+    
+    
+    <div id="left4" style="width:40%;">
+        
+    {if $result[0]['realname'] != '+'}
+    
+    
+    {if count($result[0]['son']) >= 1}
+    
+    {foreach $result[0]['son'] as $v}
+    <div class="left4">
+            
+        <div class="left4_btn"><input type="button" class="button4 button5"
+                                               onClick="team_tool.add1('{$v.realname}','{$v.user_id}')" width="30px;"
+                                               value="{if $v.isorder==1}{$v.realname}{else}-{/if}(0)"/></div>
+    
+    </div>
+    
+    {/foreach}
+    
+    
+    {if count($result[0]['son']) == 1}
+     <div class="left4">
+            
+        <div class="left4_btn"><input type="button" class="button4 button5"
+                                               onClick="team_tool.add1('+','{$result[0]['user_id']}')" width="30px;"
+                                               value="+(0)"/></div>
+    </div>
+    {/if}
+    
+    {else }
+    
+     <div class="left4">
+            
+        <div class="left4_btn"><input type="button" class="button4 button5"
+                                               onClick="team_tool.add1('+','{$result[0]['user_id']}')" width="30px;"
+                                               value="+(0)"/></div>
+    </div>
+    
+     <div class="left4">
+            
+        <div class="left4_btn"><input type="button" class="button4 button5"
+                                               onClick="team_tool.add1('+','{$result[0]['user_id']}')" width="30px;"
+                                               value="+(0)"/></div>
+    </div>
+    
+    
+    {/if}
+    
+    
+    {/if}            
+    
+    </div>
+    
+    
+    <div id="content4" style="width:9%">|</div>
+    
+    
+      <div id="right4" style="width:40%;">
+          
+          
+           
+    {if $result[1]['realname'] != '+'}
+    
+    
+    {if count($result[1]['son']) >= 1}
+    
+    {foreach $result[1]['son'] as $v}
+    <div class="right4">
+            
+        <div class="right4_btn"><input type="button" class="button4 button5"
+                                               onClick="team_tool.add1('{$v.realname}','{$v.user_id}')" width="30px;"
+                                               value="{if $v.isorder==1}{$v.realname}{else}-{/if}(0)"/></div>
+    
+    </div>
+    
+    {/foreach}
+    
+    
+     {if count($result[1]['son']) == 1}
+     <div class="right4">
+            
+        <div class="right4_btn"><input type="button" class="button4 button5"
+                                               onClick="team_tool.add1('+','{$result[1]['user_id']}')" width="30px;"
+                                               value="+(0)"/></div>
+    </div>
+    {/if}
+    
+ 
+    
+    {else }
+    
+     <div class="right4">
+            
+        <div class="right4_btn"><input type="button" class="button4 button5"
+                                               onClick="team_tool.add1('+','{$result[1]['user_id']}')" width="30px;"
+                                               value="+(0)"/></div>
+    </div>
+    
+     <div class="right4">
+            
+        <div class="right4_btn"><input type="button" class="button4 button5"
+                                               onClick="team_tool.add1('+','{$result[1]['user_id']}')" width="30px;"
+                                               value="+(0)"/></div>
+    </div>
+    
+    
+    {/if}
+    
+    
+    {/if}      
+          
+          
+        
+    </div>
+    
+</div>
+
+<div class="input_control" style="margin-top:100px;">
+
+    输入手机号搜索
+    <input type="text" id="phone" class="form_input" placeholder="请输入您要搜索的号码"   />
+
+
+</div>
+
+{$search_result}
+
+<div class="input_control" style="margin-left:200px">
+    <input type="button" class="button orange" onClick="team_tool.search()" width="350px;" value="搜索"
+        placeholder="请输入新办的号码"/>
+
+</div>
+
+
+
+
+<div  class="input_control" style="margin-top:50px;">
+    
+    <table style="border-width: 1px;"  >
+     <tr height="30px;" style="background-color: #e3e3f9;border-width: 2px;">
+     <th width="20%"  >驳回时间</th>
+     <th width="20%">号码</th>
+    <th width="45%">驳回原因</th>
+    <th width="15%">操作</th>
+     </tr >
+     	{if count($reason_list) > 0}
+     	{foreach $reason_list as $v}
+     	
+         <tr height="50px;" style="background-color: #eeeef5;border-width: 2px;">
+           <td align="center">{$v.member_time}</td>
+           <td align="center">{$v.username}</td>
+           <td align="center">{$v.bio}</td>
+           {if $v['dzjb']==2}<td onClick="team_tool.upteam('{$v['user_id']}','{$v['id']}')" align="center">提交</td>{else}
+           <td></td>
+           {/if}
+         </tr>
+         
+        {/foreach}
+        {/if}
+	</table>
+    
+</div>
+
+
+
+
+
+<script type="text/javascript">
+
+
+    $(function(){
+        
+       team_tool={
+           
+           back:function(){
+             history.back();  
+           },
+           
+           search:function(){
+              let phone = $('#phone').val();
+              
+              location.href="{:url('user/team')}?phone="+phone; 
+              
+           },
+           
+           add:function(oid,xid){
+               
+                if (oid == 0) {
+                    window.location.href = "{:url('user/add')}?xid=" + xid;
+                } else {
+                    window.location.href = "{:url('user/team')}?user_id=" + oid;
+                }
+           },
+           upteam:function(xid,id){
+               window.location.href = "{:url('user/add')}?xid=" + xid+'&id='+id;
+           },
+           
+            add1:function(realname,xid){
+               
+                if (realname == '+') {
+
+
+
+                    window.location.href = "{:url('user/add')}?xid=" + xid;
+                } else {
+                    window.location.href = "{:url('user/team')}?user_id=" + xid;
+                }
+           }
+           
+           
+           
+           
+       } 
+    });
+    
+
+
+    // function add(oid, xid) {
+
+    //     if (oid == "") {
+    //         window.location.href = "teamadd.html?xid=" + xid;
+    //     } else {
+    //         window.location.href = "myteam.html?user_id=" + oid;
+    //     }
+
+
+    // }
+
+    // function seach() {
+    //     var phone = $('#phone').val();
+
+    //     window.location.href = "myteam.html?phone=" + phone;
+
+
+    // }
+
+
+</script>
+
+
+</body>
+</html>

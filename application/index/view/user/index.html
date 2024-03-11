@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html class="mdd-page">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>个人中心</title>
+    <meta name="charset" content="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>个人中心</title>
+	<meta http-equiv="Cache-Control" content="must-revalidate,no-cache">
+	<link rel="stylesheet" type="text/css" href="/assets/css/app/shoujisc.css">
+	
+	<link rel="stylesheet" href="/assets/css/app/common.css">
+    <link rel="stylesheet" href="/assets/css/app/app_user.css">
+    <script src="/assets/js/jquery.js"></script>
+    <style>
+#wrapper { width: 100%; margin: 10 auto; }
+
+#container { width: 100%; height:30px;}
+#container #left,#container #content, #container #right {  float: left;text-align:center; font-size:10px;}
+#left {  margin-left:8px;background: #fff;height:20px;width:28%;padding:5px;}
+#content { margin-left:8px;background: #fff;height:20px;width:28%;padding:5px;}
+#right {  margin-left:8px;background: #fff;height:20px;width:28%;padding:5px;}
+
+
+
+.input_control{
+  width:360px;
+  margin:80px auto;
+}
+
+
+.orange {
+
+    color: #fef4e9;
+
+    border: solid 1px #da7c0c;
+
+    background: #f78d1d;
+
+    background: -webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
+
+    background: -moz-linear-gradient(top,  #faa51a,  #f47a20);
+
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');
+
+}
+
+.orange:hover {
+
+    background: #f47c20;
+
+    background: -webkit-gradient(linear, left top, left bottom, from(#f88e11), to(#f06015));
+
+    background: -moz-linear-gradient(top,  #f88e11,  #f06015);
+
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f88e11', endColorstr='#f06015');
+
+}
+
+.orange:active {
+
+    color: #fcd3a5;
+
+    background: -webkit-gradient(linear, left top, left bottom, from(#f47a20), to(#faa51a));
+
+    background: -moz-linear-gradient(top,  #f47a20,  #faa51a);
+
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f47a20', endColorstr='#faa51a');
+
+}
+
+.button {
+
+    display: inline-block;
+
+    zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */
+
+    *display: inline;
+
+    vertical-align: baseline;
+
+    margin: 0 2px;
+    width:350px;
+    height:40px;
+
+    outline: none;
+
+    cursor: pointer;
+
+    text-align: center;
+
+    text-decoration: none;
+
+    font: 18px/100% Arial, Helvetica, sans-serif;
+
+    padding: .5em 2em .55em;
+
+    text-shadow: 0 1px 1px rgba(0,0,0,.3);
+
+    -webkit-border-radius: .5em;
+
+    -moz-border-radius: .5em;
+
+    border-radius: .5em;
+
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+
+    box-shadow: 0 1px 2px rgba(0,0,0,.2);
+
+}
+
+.button:hover {
+
+    text-decoration: none;
+
+}
+
+.button:active {
+
+    position: relative;
+
+    top: 1px;
+
+}
+
+
+    </style>
+</head>
+<body>
+<section class="content">
+    <header class="user-info1" style="background-color: #ff3c00cc;	;">
+        <section class="user-basic1" style="height: 150px">
+        
+     
+        <img src="/assets/img/login_logo.png">
+         <div class="user-name1" >{$user.realname} &nbsp;{$user.username}</div>
+         
+         <div class="user-name1" > 安置人：{$user.name}</div>
+         
+        </section>
+       
+    </header>
+    <div style="background-color: #F3F3F3;height: 10px"></div>
+   <div style="background-color: #F3F3F3;height:60px;">
+<div id="wrapper">
+
+ <div id="container">
+  <div id="left">今日新增积分</div>
+  <div id="content">总积分</div>
+  <div id="right">总积分兑换</div>
+ </div>
+  <div id="container">
+  <div id="left">{$user.area_id}</div>
+  <div id="content">{$user.year}</div>
+  <div id="right">{$user.sex}</div>
+ </div>
+</div>
+    
+    </div>
+    
+    
+    <div style="background-color: #F3F3F3;height: 10px"></div>
+    <section class="f-section" style="line-height: 40px">
+        
+       <a class="slide-link" href="javascript:;" onclick="index_tool.profile()">
+            <img src="/assets/img/wd-012-02.png">
+           &nbsp;&nbsp;我的积分
+        </a>
+     </section>
+         <!--  
+       <div style="background-color: #F3F3F3;height: 1px"></div>
+         <a class="slide-link" href="cpsList.html">
+            <img src="images/wd-012-1.png">
+            &nbsp;&nbsp;面膜优惠券     </a>  
+           
+    </section>-->
+    <div style="background-color: #F3F3F3;height: 1px"></div>
+    <section class="f-section" style="line-height: 30px">
+        
+       <a class="slide-link" href="javascript:;" onclick="index_tool.team()">
+            <img src="/assets/img/wd-012-03.png">
+           &nbsp;&nbsp;我的团队
+        </a>
+     </section>
+     
+     <div style="background-color: #F3F3F3;height: 1px"></div>
+    <section class="f-section" style="line-height: 30px">
+        
+       <a class="slide-link" href="javascript:;" onclick="index_tool.changePassword()">
+            <img src="/assets/img/wd-012-06.png">
+         &nbsp;&nbsp;密码管理
+        </a>
+     </section>
+ <!--  
+     <div style="background-color: #F3F3F3;height: 1px"></div>
+    <section class="f-section" style="line-height: 30px">
+        
+       <a class="slide-link" href="orderList.html">
+            <img src="images/wd-012-04.png">
+            &nbsp;&nbsp;我的分享海报
+        </a>
+     </section>
+ 
+    <div style="background-color: #F3F3F3;height: 1px"></div>
+    <section class="f-section" style="line-height: 30px">
+        
+       <a class="slide-link" href="orderList.html">
+            <img src="images/wd-012-1.png">
+            &nbsp;&nbsp;我的订单
+        </a>
+     </section>
+      <div style="background-color: #F3F3F3;height: 1px"></div>
+        <section class="f-section" style="line-height: 30px">
+               
+                <a class="slide-link" href="addressList.html">
+            <img src="images/wd-012-03.png">
+            &nbsp;&nbsp;地址管理        </a>
+                
+            </section>   -->   
+            
+         <div style="background-color: #F3F3F3;height: 1px"></div>
+      	  <section class="f-section" style="line-height: 30px">
+               
+                <a class="slide-link" href="javascript:;" onclick="index_tool.about()">
+            <img src="/assets/img/wd-012-03.png">
+            &nbsp;&nbsp;关于我们        </a>
+                
+            </section>
+            <!--  
+             <div style="background-color: #F3F3F3;height: 1px"></div>
+         <section class="f-section">
+                <a class="slide-link" href="tel:13924843910">
+            <img src="images/wd-012-08.png">
+          &nbsp;&nbsp;  客服反馈        <em>麦生139-2484-3910</em>  </a>
+         </section> 
+         -->
+<div style="background-color: #F3F3F3;height: 1px"></div>
+
+    <div class="input_control">
+   <input type="button" class="button orange" onClick="index_tool.logout()" width="150px;" value="退出登录"/>
+     </div>
+     
+     <script type="text/javascript">
+		
+        $(function(){
+            
+            index_tool={
+                profile:function(){
+                    location.href="{:url('user/profile')}";
+                },
+                
+                logout:function(){
+                  
+                   location.href="{:url('user/logout')}";
+                    
+                },
+                
+                team:function(){
+                     location.href="{:url('user/team')}";
+                },
+                
+                changePassword:function(){
+                   location.href="{:url('user/changepwd')}"; 
+                },
+                
+                about:function(){
+                     location.href="{:url('user/about')}"; 
+                }
+                
+            }
+            
+            
+        });
+
+	
+
+	
+	</script>	
+     
+     
+</body></html>
+
+
+
+
+
+
+
+

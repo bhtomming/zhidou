@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成二叉树</title>
+    <style>
+        body {
+            background-color: antiquewhite;
+        }
+ 
+        .tree {
+            z-index: 66;
+        }
+ 
+        .tree .line {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 40px;
+        }
+ 
+        .tree .line .node {
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            border: 2px solid black;
+            border-radius: 50%;
+            background-color: white;
+        }
+ 
+        .tree .line .node .drawLine {
+            position: absolute;
+            border: 1px solid black;
+            z-index: -1;
+        }
+ 
+        .tree .line .null {
+            opacity: 0.1;
+            border: 2px dashed black;
+        }
+ 
+        * {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+ 
+<body>
+    <div id="tree"></div>
+    <script>
+        //————测试数据在最下面 
+        /** 二叉树节点类，与Leecode的定义方法相同
+         * val: number  当前节点值
+         * left: TreeNode 左节点
+         * right: TreeNode 右节点
+         */
+        class TreeNode {
+            val;
+            left;
+            right;
+            constructor(val, left, right) {
+                this.val = (val === undefined ? 0 : val);
+                this.left = (left === undefined ? null : left);
+                this.right = (right === undefined ? null : right);
+            }
+        }
+        /** 根据层序数组构造二叉树 ，比如 [1,2,3] 变为  根1 左2 右3
+         * @param arr 传入的数组
+         * @returns TreeNode 这个树的根节点
+         */
+        const buildTree = (arr) => {
+            if (arr.length === 0)
+                return null;
+            let i = 0; //i每次用完都需要自增1，因为层序构造依赖于数组的索引
+            let root = new TreeNode(arr[i++]);
+            let NodeList = [root];
+            while (NodeList.length) {
+                let node = NodeList.shift();
+                if (arr[i] !== null) { //如果是空的就不创建节点
+                    node.left = new TreeNode(arr[i]); //创建左节点
+                    NodeList.push(node.left);
+                }
+                i++; //不管是不是空的，i都需要自增
+                if (i == arr.length)
+                    return root; //如果长度已经够了就返回，免得数组索引溢出
+                if (arr[i] !== null) { //如果是空的就不创建节点
+                    node.right = new TreeNode(arr[i]); //创建右节点
+                    NodeList.push(node.right);
+                }
+                i++; //不管是不是空的，i都需要自增
+                if (i == arr.length)
+                    return root; //如果长度已经够了就返回，免得数组索引溢出
+            }
+            return root;
+        };
+        /** 层序遍历二叉树，输出数组   特化版：保留null */
+        const outTree = (root) => {
+            let res = [];
+            let queue = [];
+            if (root) {
+                res.push(root.val);
+                queue.push(root);
+            }
+            let len;
+            while (queue.length) {
+                len = queue.length;
+                // console.log(JSON.parse(JSON.stringify(queue)));
+                for (let i = 0; i < len; i++) {
+                    let node = queue.shift();
+                    if (node.left)
+                        queue.push(node.left);
+                    res.push(node.left?.val || null); //当前节点的左边没数值就放入null，否则放入左节点值
+                    if (node.right)
+                        queue.push(node.right);
+                    res.push(node.right?.val || null); //当前节点的右边没数值就放入null，否则放入右节点值
+                }
+            }
+            // 最后一层的左右子树虽为空，但是也放入了null，需要删除数组末尾无用的null
+            // 方法一: 只要是末尾的null都剔除
+            for (let i = res.length - 1; i >= 0; i--) {
+                if (res[i] === null)
+                    res.length--; //遇到null就长度-1
+                else
+                    break; //一旦遇到了不是null的，就立马退出
+            }
+            //方法二：根据最后一层的节点个数，剔除 len * 2个null
+            // res.length -= len * 2 //这个会保留最后一层的null，比如[50, 30, 70, 8, 40, 60]，在最后一层其实是 8 40 60 null，这个方法会保留这个null，上面的不会
+            return res;
+        };
+        /** 二叉树生成dom，传入层序数组和要挂载的节点id，并返回原本的层序数组便于打印 不传入nodeId或id不存在时，将挂载在body上 */
+        const treeToDom = (arr, nodeId) => {
+            try {
+                //#region 先把数组截取为二维数组，每个一维数组代表一层
+                let spiltArr_Arr = [];
+                let index = 0;
+                while (index < arr.length) {
+                    let endIndex = index * 2 + 1; //要截取的结尾索引
+                    let spiltArr = arr.slice(index, endIndex);
+                    index = endIndex; //设置下一个起点 
+                    spiltArr_Arr.push(spiltArr);
+                }
+                // console.log('spiltArr_Arr', jsonDeep(spiltArr_Arr));
+                //#endregion
+                //#region 然后每一层都转为dom，并插入页面
+                let dom = ``;
+                let line = ``;
+                let item = ``;
+                for (let i = 0; i < spiltArr_Arr.length; i++) {
+                    const element = spiltArr_Arr[i];
+                    //第二层遍历：遍历每一层并生成dom   
+                    for (let j = 0; j < element.length; j++) {
+                        if (i - 1 >= 0 && element[j]) { //当该元素不为null时，判断父亲是否为null，如果是的话说明不是真正的父亲，需要往后顺延
+                            let parentNode = spiltArr_Arr[i - 1][parseInt((j / 2) + '')];
+                            // console.log(j, spiltArr_Arr[i - 1], parseInt((j / 2) + ''), parentNode);
+                            if (parentNode === null)
+                                element.splice(j, 0, null);
+                        }
+                        const element2 = element[j];
+                        item += `<div class="node node${j + (2 ** i) - 1} ${i === 0 ? 'root' : ''} ${element2 === null ? 'null' : ''}">${element2}</div>`;
+                        if (j === element.length - 1 && element.length < 2 ** i) { //如果j为最后一个了，发现最后一层长度不满，就需要填充null 
+                            while (element.length < 2 ** i)
+                                element.push(null); //防止有的末尾没元素，导致页面变形，把数组填充为满二叉树，只不过是填充null 
+                        }
+                    }
+                    line = `<div class="line">${item}</div>`;
+                    dom += line;
+                    item = '';
+                    line = '';
+                }
+                let _node = document.getElementById(nodeId);
+                if (_node === null) {
+                    _node = document.createElement('div');
+                    document.querySelector('body').append(_node);
+                }
+                _node.className = 'tree';
+                let _treedoc = new DOMParser().parseFromString(dom, 'text/html'); //将字符串转换为document文档对象 
+                let _root = _treedoc.querySelectorAll('.line');
+                for (let i = 0; i < _root.length; i++)
+                    _node.appendChild(_root[i]); //把所有节点都挂载上去  
+                //#endregion
+                //#region 连线
+                let newArr = spiltArr_Arr.flat(); //这里使用前面处理好了的层序数组，拍平，可以实现: 当前正常节点没有父亲时往后顺延 
+                for (let i = newArr.length - 1; i > 0; i--) {
+                    //找自己节点和父节点，因为自己肯定有父节点，但自己不一定有子节点，所以还是需要从子找父亲
+                    let node = _node.querySelector(`.node${i}`);
+                    let parentNode = _node.querySelector(`.node${parseInt((i - 1) / 2 + '')}`);
+                    // console.log([node, parentNode]);
+                    if (newArr[i] !== null) { //当前节点不是null才画线  
+                        drawLine(node, parentNode);
+                    }
+                }
+                //#endregion
+                return arr;
+ 
+            } catch (error) {
+                console.warn('请检查二叉树是否正确! ');
+                console.error(error);
+            }
+        };
+        /**获得该元素的中心位置
+         * @param element dom元素
+         * @returns 返回该元素的中心坐标对象 left，top
+         */
+        const getCenter = (element) => {
+            const rect = element.getBoundingClientRect();
+            //初始中心位置
+            const center = {
+                left: rect.left + (rect.right - rect.left) / 2,
+                top: rect.top + (rect.bottom - rect.top) / 2
+            };
+            //加上屏幕滚动偏移量
+            const scrollLeft = document.body.scrollLeft || document.documentElement.scrollLeft;
+            const scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+            //最终的 左 和 上位置
+            center.left = scrollLeft + center.left;
+            center.top = scrollTop + center.top;
+            return center;
+        };
+        /**两点之间连线，传入元素会自动计算中心点
+         * @param startElement 开始点的dom元素
+         * @param endElement 结束点的dom元素
+         */
+        const drawLine = (startElement, endElement) => {
+            // 起点元素中心坐标
+            const start = getCenter(startElement);
+            const startY = start.top;
+            const startX = start.left;
+            // 终点元素中心坐标
+            const end = getCenter(endElement);
+            const endY = end.top;
+            const endX = end.left;
+            // 用勾股定律计算出斜边长度及其夹角（即连线的旋转角度）
+            const lx = endX - startX;
+            const ly = endY - startY;
+            // 计算连线长度
+            const length = Math.sqrt(lx * lx + ly * ly);
+            // 弧度值转换为角度值
+            const c = 360 * Math.atan2(ly, lx) / (2 * Math.PI);
+            // 连线中心坐标
+            const midX = (endX + startX) / 2;
+            const midY = (endY + startY) / 2;
+            const deg = c <= -90 ? (360 + c) : c; // 负角转换为正角
+            const dom = `<div class="drawLine" style="top:${midY}px;left:${midX - length / 2}px;width: ${length}px;transform: rotate(${deg}deg);"></div>`;
+            let _treedoc = new DOMParser().parseFromString(dom, 'text/html'); //将字符串转换为document文档对象 
+            let _root = _treedoc.querySelector('.drawLine');
+            startElement.appendChild(_root);
+        };
+ 
+        /**二叉树测试数据 */
+        const inData = [3, 1, 4, null, 2, null, null, 1];
+        const inData2 = [3, 1, 4, 1, 23, 4, 5, 6, 7, 8, 9, null, 10, null, 11];
+        treeToDom(inData, 'tree');//指定挂载节点
+        treeToDom(inData2);//不指定挂载节点
+    </script>
+</body>
+ 
+</html>

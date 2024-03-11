@@ -1,0 +1,128 @@
+<form id="um-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+    {:token()}
+   
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">直推奖励：</label>
+        <div class="col-xs-12 col-sm-8">
+            <input name="tjj" class="form-control"  type="number"   value="{$result['tjj']}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">直推奖励二：</label>
+        <div class="col-xs-12 col-sm-8">
+            <input name="tjj1" class="form-control"  type="number"   value="{$result['tjj1']}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">专员平均奖励：</label>
+        <div class="col-xs-12 col-sm-8">
+            <input name="yyt1" class="form-control"  type="number" value="{$result['yyt1']}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">创客平均奖励：</label>
+        <div class="col-xs-12 col-sm-8">
+             <input name="yyt2" class="form-control"  type="text" value="{$result['yyt2']}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">店长平均奖励：</label>
+        <div class="col-xs-12 col-sm-8">
+           <input name="yyt3" class="form-control"  type="text" value="{$result['yyt3']}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">经理平均奖励：</label>
+        <div class="col-xs-12 col-sm-8">
+            <input name="yyt4" class="form-control"  type="text" value="{$result['yyt4']}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">总监平均奖励：</label>
+        <div class="col-xs-12 col-sm-8">
+           <input name="yyt5" class="form-control"  type="text" value="{$result['yyt5']}">
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">总裁平均奖励：</label>
+        <div class="col-xs-12 col-sm-8">
+           <input name="yyt6" class="form-control"  type="text" value="{$result['yyt6']}">
+        </div>
+    </div>
+    
+
+    <input name="dz1" class="form-control"  type="hidden" value="{$result['dz1']}">
+
+    <input name="dz2" class="form-control"  type="hidden" value="{$result['dz2']}">
+
+    
+      <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">店员左卡数：</label>
+        <div class="col-xs-12 col-sm-8">
+           <input name="dz3" class="form-control"  type="text" value="{$result['dz3']}">
+        </div>
+    </div>
+    
+      <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">店员右卡数：</label>
+        <div class="col-xs-12 col-sm-8">
+           <input name="dz4" class="form-control"  type="text" value="{$result['dz4']}">
+        </div>
+    </div>
+    
+    
+      <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">经理左卡数：</label>
+        <div class="col-xs-12 col-sm-8">
+           <input name="dz5" class="form-control"  type="text" value="{$result['dz5']}">
+        </div>
+    </div>
+    
+      <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">经理右卡数：</label>
+        <div class="col-xs-12 col-sm-8">
+           <input name="dz6" class="form-control"  type="text" value="{$result['dz6']}">
+        </div>
+    </div>
+    
+      <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">总监左卡数：</label>
+        <div class="col-xs-12 col-sm-8">
+           <input name="dz7" class="form-control"  type="text" value="{$result['dz7']}">
+        </div>
+    </div>
+    
+      <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">总监右卡数：</label>
+        <div class="col-xs-12 col-sm-8">
+           <input name="dz8" class="form-control"  type="text" value="{$result['dz8']}">
+        </div>
+    </div>
+    
+      <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">总裁左卡数：</label>
+        <div class="col-xs-12 col-sm-8">
+           <input name="dz9" class="form-control"  type="text" value="{$result['dz9']}">
+        </div>
+    </div>
+    
+      <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">总裁右卡数：</label>
+        <div class="col-xs-12 col-sm-8">
+           <input name="dz10" class="form-control"  type="text" value="{$result['dz10']}">
+        </div>
+    </div>
+    
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-primary btn-embossed">提交</button>
+           
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+
+</script>	

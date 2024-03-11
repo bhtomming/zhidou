@@ -1,0 +1,51 @@
+<form id="um-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+    {:token()}
+    <input id="c-did" class="form-control" type="hidden" value="{$row['did']}" name="row[did]">
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">收件人：</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-name" class="form-control" type="text" readonly value="{$row['name']}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">收件人电话：</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-cardNo" class="form-control"  type="text" readonly value="{$row['cardNo']}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">收件人地址（*）：</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-address" class="form-control"  type="text" readonly value="{$row['address']}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">快递单号：</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-code" class="form-control"  type="text" value="" name="row[code]">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">说明：</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="text" id="c-remark" placeholder="" value="" name="row[remark]"  class="input-text" style="width: 10%;ime-mode:disabled;">
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" onClick="add()" class="btn btn-primary btn-embossed">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+	function add(){
+		var code = $('#c-code').val();
+		if(code=""){
+			alert("单号不能为空");
+			return;
+		}
+    }
+	</script>	

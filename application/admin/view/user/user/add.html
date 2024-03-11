@@ -1,0 +1,57 @@
+<form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+    {:token()}
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">新联通号码（*）：</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-phone" class="form-control" name="row[phone]" type="text">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">姓名（*）：</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-username" class="form-control" name="row[username]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-name" class="control-label col-xs-12 col-sm-2">摆位用户（*）：</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-xid" class="form-control" name="row[xid]" type="text" placeholder="请输入摆位用户手机号" value="{$xu}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-title" class="control-label col-xs-12 col-sm-2">营业厅用户：</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-tid" class="form-control" name="row[tid]" type="text" value="">
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" onClick="add()" class="btn btn-primary btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+		
+	function add(){
+		
+		var phone = $('#c-phone').val();
+		var username = $('#c-username').val();
+		var xid = $('#c-xid').val();
+		var tid = $('#c-tid').val();
+		if(oppen_id=""){
+			alert("手机号不能为空");
+			return;
+		}
+        if(username=""){
+			alert("姓名不能为空");
+			return;
+		}
+        if(xid=""){
+			alert("摆位用户不能为空");
+			return;
+		}
+    }
+	</script>	

@@ -1,0 +1,127 @@
+<form id="um-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+    {:token()}
+    <input id="action" type="hidden" value="check" name="action">
+    <input id="reason" type="hidden" value="" name="reason">
+    <input id="c-user_id" class="form-control" type="hidden" value="{$row['user_id']}" name="user_id">
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">手机号：</label>
+        <div class="col-xs-12 col-sm-8">
+            {$row['username']}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">姓名：</label>
+        <div class="col-xs-12 col-sm-8">
+            {$row['realname']}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">星级：</label>
+        <div class="col-xs-12 col-sm-8">
+            {$row['jzsj']}星<a href="{:url('/user/user/upxj?user_id='.$row['user_id'])}" > <font color=blue>点击更改星级</font></a>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">推荐人：</label>
+        <div class="col-xs-12 col-sm-8">
+            {$row['name']}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">报单人：</label>
+        <div class="col-xs-12 col-sm-8">
+            {$row['fzjc']}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">直推人：</label>
+        <div class="col-xs-12 col-sm-8">
+            {$row['bingshi']}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">充值图片：</label>
+        <div class="col-xs-12 col-sm-8">
+            {if empty($row['cardNo'])}
+            <img width="300" alt="暂无图片" src="/assets/img/avatar.png" >
+            {else}
+            <a href="{$row['cardNo']}"  target="_blank"><img width="300" alt="" src="{$row['cardNo']}"></a>
+            {/if}
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="button" onClick="up('{$row[\'user_id\']}','{$row[\'username\']}','{$row[\'oppen_id\']}')" class="btn btn-primary btn-embossed">审核通过并分佣</button>
+            <button type="button"  onClick="del('{$row[\'user_id\']}')" class="btn btn-primary btn-embossed">审核不通过</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+	function up(user_id,phone,oppen_id){
+		
+		var  b = confirm('审核后不能更改上级，并且佣金会同步发放，请确认是否通过？');
+		if(!b){
+		return ;
+		}
+	    
+	    $('#reason').val('');
+	    $('#action').val('check');
+	    $('#um-form').submit();
+	    
+	    
+// 		$.ajax({
+// 			url:Config.moduleurl+'/user/user/userupmoney',
+// 			type:'post',
+// 			data:'level=2&oppen_id='+oppen_id+'&phone='+phone+'&user_id='+user_id,
+// 			success:function(rs){
+				
+// 				if(rs==1){
+// 					alert("审核成功");
+// 					window.location.href = "userList.html";
+// 				}else{
+// 					alert("审核失败");
+// 				}
+// 			}
+// 		});
+	}
+	
+	
+	function del(user_id){
+	
+		var  reason = prompt('请输入驳回理由');
+		
+		if(reason == null){
+		    
+		    return false;
+		   
+		}else if(reason == ''){
+		      alert('驳回理由不得为空');
+		        return false;
+		}else{
+		    
+		        $('#reason').val(reason);
+    		    $('#action').val('remove');
+    	        $('#um-form').submit();
+		       
+		}
+	
+	 
+// 		$.ajax({
+// 			url:Config.moduleurl+'/user/user/del',
+// 			type:'post',
+// 			data:'{
+// 			  user_id:user_id  
+// 			},
+// 			success:function(rs){
+// 				if(rs==1){
+// 					alert("删除成功");
+// 					window.location.href = "userList.html";
+// 				}else{
+// 					showTip("删除失败！");
+// 				}
+// 			}
+// 		})
+	}
+	</script>	

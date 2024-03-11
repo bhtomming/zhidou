@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html class="mdd-page">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>关于我们</title>
+    <meta name="charset" content="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+   
+	<meta http-equiv="Cache-Control" content="must-revalidate,no-cache">
+	<link rel="stylesheet" type="text/css" href="/assets/css/app/shoujisc.css">
+	
+	<link rel="stylesheet" href="/assets/css/app/common.css">
+    <link rel="stylesheet" href="/assets/css/app/app_user.css">
+    <script src="/assets/js/jquery.js"></script>
+    
+    <style>
+#wrapper { width: 100%; margin: 10 auto;height:51px; }
+
+#container { width: 100%; height:50px;}
+#container #left,#container #content, #container #right  {  float: left;text-align:center; font-size:12px;margin-top:3px;color: #fe463c;}
+#left {  margin-left:8px;background: #f7f7f7;height:20px;width:28%;padding:5px;}
+#content { margin-left:8px;background: #f7f7f7;height:20px;width:28%;padding:5px;}
+#right {  margin-left:8px;background: #f7f7f7;height:20px;width:28%;padding:5px;}
+
+
+
+#container1 { width: 100%; height:70px;}
+#container1 #left1 {  float: left;text-align:left; font-size:20px;color: #faa51a}
+#left1 {  margin-left:8px;margin-top:15px;background: #fff;height:20px;width:100%;padding:5px;}
+
+.input_control{
+  width:360px;
+  margin:20px auto;
+}
+
+.orange {
+
+    color: #fef4e9;
+
+    border: solid 1px #da7c0c;
+
+    background: #f78d1d;
+
+    background: -webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
+
+    background: -moz-linear-gradient(top,  #faa51a,  #f47a20);
+
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');
+
+}
+
+.orange:hover {
+
+    background: #f47c20;
+
+    background: -webkit-gradient(linear, left top, left bottom, from(#f88e11), to(#f06015));
+
+    background: -moz-linear-gradient(top,  #f88e11,  #f06015);
+
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f88e11', endColorstr='#f06015');
+
+}
+
+.orange:active {
+
+    color: #fcd3a5;
+
+    background: -webkit-gradient(linear, left top, left bottom, from(#f47a20), to(#faa51a));
+
+    background: -moz-linear-gradient(top,  #f47a20,  #faa51a);
+
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f47a20', endColorstr='#faa51a');
+
+}
+
+.button {
+
+    display: inline-block;
+
+    zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */
+
+    *display: inline;
+
+    vertical-align: baseline;
+
+    margin: 0 2px;
+    width:350px;
+    height:40px;
+
+    outline: none;
+
+    cursor: pointer;
+
+    text-align: center;
+
+    text-decoration: none;
+
+    font: 18px/100% Arial, Helvetica, sans-serif;
+
+    padding: .5em 2em .55em;
+
+    text-shadow: 0 1px 1px rgba(0,0,0,.3);
+
+    -webkit-border-radius: .5em;
+
+    -moz-border-radius: .5em;
+
+    border-radius: .5em;
+
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+
+    box-shadow: 0 1px 2px rgba(0,0,0,.2);
+
+}
+
+.button:hover {
+
+    text-decoration: none;
+
+}
+
+.button:active {
+
+    position: relative;
+
+    top: 1px;
+
+}
+
+
+    </style>
+</head>
+<body>
+
+<div class="sjsc-title2">
+    	<h3 class="sjsc-t2l">关于我们</h3>
+        <a href="javascript:;" onclick="about_tool.back()" class="sjsc-t2r"><img src="/assets/img/back.png" alt="" style="width:20px;height: 20px;padding-top: 11px;padding-left: 5px"/></a>
+  </div>
+
+
+
+<div style="background-color: #F3F3F3;height: 1px"></div>
+
+
+
+ <div id="container">
+  
+  {$result.content | html_entity_decode }
+  
+ </div>
+
+
+
+
+    <script type="text/javascript">
+
+	       $(function(){
+	          
+	          about_tool={
+	              back:function(){
+	                  history.back();
+	              }
+	          }
+	           
+	       });
+
+	
+	</script>	
+    
+   
+
+</body></html>
