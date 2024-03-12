@@ -595,7 +595,7 @@ class User extends Frontend
 
             if($deep == 0){
                 $value['son']=$this->getSonsInfo($value['user_id'],1);
-                $value['count']=$this->commUser->countLineUsers($value['user_id']);
+
             }
             
             if($value['realname']){
@@ -604,7 +604,8 @@ class User extends Frontend
                 
             }
 
-            
+            $value['count']=$this->commUser->countLineUsers($value['user_id']);
+
             $lists[] = $value;
         }
         
