@@ -442,4 +442,24 @@ class User
         
         model('user')->where('user_id',$user_id)->update($update_field);
     }
+
+    //计算当前用户共有多少未停机的卡数
+    public function countLineUsers($user_id)
+    {
+        $lineUser = 0;
+        $underUsers = model('user')->where('top_openid',$user_id)->select();
+        if(!empty($underUsers))
+        {
+            foreach ($underUsers as $underUser)
+            {
+                $lineUser++;
+                $lineUser += $this->countLineUsers($underUser['user_id']);
+                if($underUser['isorder']==0)
+                {
+                    $lineUser--;
+                }
+            }
+        }
+        return $lineUser;
+    }
 }

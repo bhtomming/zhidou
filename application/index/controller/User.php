@@ -25,6 +25,8 @@ class User extends Frontend
     protected $noNeedLogin = ['login', 'register', 'third', 'forget'];
     protected $noNeedRight = ['*'];
 
+    private  $commUser;
+
     public function _initialize()
     {
         
@@ -53,6 +55,7 @@ class User extends Frontend
             Cookie::delete('uid');
             Cookie::delete('token');
         });
+        $this->commUser = new CommonUser();
     }
 
     /**
@@ -540,139 +543,34 @@ class User extends Frontend
         $flag = 0;
         $search_result="";
 
-        if(!empty($result['phone'])){
-            $user = Db::name("user")->where("oppen_id",$result['phone'])->find();
+        $user = $this->getUserByQuery($result);
+        $user_id = $user['user_id'];
 
-
-            if(empty($user)){
-                $flag = 1;
-                $user =  Db::name("user")->find($this->auth->id);
-                $search_result = "查无".$result['phone']."号码的数据";
-            }
-            
-            $user_id = $user['user_id'];
-        }else if(!empty($result['user_id'])){
-            
-            $user = Db::name("user")->where("user_id",$result['user_id'])->find();
-
-            $user_id = isset($user['user_id']) ? $user['user_id'] : 0;
-            
-        }else{
-            $user = Db::name("user")->find($this->auth->id);
-            $user_id = $user['user_id'];
+        if(empty($user)){
+            $flag = 1;
+            $user =  Db::name("user")->find($this->auth->id);
+            $search_result = "查无".$result['phone']."号码的数据";
         }
+
         
-        $count = 1;
-        
-        
-        
-       
-        
-        
-        
-        $result = $this->getSonsInfo($user_id,$count);
-        
-        if(count($result) == 0){
-            $result[] = ['user_id'=>0,"username"=>"添加","realname"=>"+","son"=>[],"count"=>0,'isorder'=>1];
-            $result[] = ['user_id'=>0,"username"=>"添加","realname"=>"+","son"=>[],"count"=>0,'isorder'=>1];
-        }else if(count($result) == 1){
-            $result[] = ['user_id'=>0,"username"=>"添加","realname"=>"+","son"=>[],"count"=>0,'isorder'=>1];
+        $result = $this->getSonsInfo($user_id);
+
+        if(count($result) < 2 ){
+            for($i=count($result);$i<2;$i++)
+            {
+                $result[$i] = ['user_id'=>0,"username"=>"添加","realname"=>"+","son"=>[],"count"=>0,'isorder'=>1];
+            }
 
         }
-            
-            
-            $total = 0;
-            
-            // if(isset($result[0]) && !empty($result[0]) && $result[0]['realname'] != '+'){
-            //     $total += $result[0]['count'] + 1;
-            // }
-            
-            
-            // if(isset($result[1]) && !empty($result[1]) && $result[1]['realname'] != '+'){
-            //     $total += $result[1]['count'] + 1;
-            // }
-            
-            
-            $top_user = Db::name("user")->find($this->auth->id);
-                
-            $common_user = new CommonUser();
-                   
-            $list = $common_user->getlineusers($user_id);
-                   
-          
-                   
-            if(!empty($list['left'])){
 
+        $top_user = Db::name("user")->find($this->auth->id);
 
-                $left_total_users = 0;
+        $user['count'] = $this->commUser->countLineUsers($user_id);
 
-                if($list['left']['isorder'] == 0){
-                  //  $leftLineUsers = $common_user->getlineusers($list['left']['user_id']);
-                   // $total += count($leftLineUsers['left']['son']) + count($leftLineUsers['right']['son']);
-                    $left_users = [];
-                    CommonUser::getchildrenuser($list['left']['user_id'],$left_users);
-                    $left_total_users = count($left_users);
-                }else{
-                    $left_total_users = count($list['left']['son']) + 1;
-                }
-                $total += $left_total_users;
-
-                //if(isset($result[0]) ) {$result[0]['count'] = count($list['left']['son']);}
-                if(isset($result[0]) ) {$result[0]['count'] = $left_total_users;}
-            }
-                   
-                   
-            if(!empty($list['right'])){
-
-                $right_total_users = 0;
-                if($list['right']['isorder'] == 0){
-                   // $total += count($list['right']['son']);
-                    $right_users = [];
-                    CommonUser::getchildrenuser($list['right']['user_id'],$right_users);
-                    $right_total_users = count($right_users);
-                }else{
-                    $right_total_users = count($list['right']['son']) + 1;
-                }
-                $total += $right_total_users;
-
-
-                if(isset($result[1]) ) {$result[1]['count'] = $right_total_users;}
-            }
-            
-            
-            
-            
-            $user['count'] = $total;
-     
-        
-        
-        
         $reason_list = Db::name('user')->where('tj',$top_user['user_id'])->where('dzjb',2)->where('isorder',0)->select();
-        
-        
-           
-        if($user['realname']){
-                
-                if(mb_strlen($user['realname']) >= 3){
-                    $tmp_arr=[];
-                    $tmp_arr[0] = mb_substr($user['realname'], 0,1);
-                    $tmp_arr[1] = mb_substr($user['realname'], mb_strlen($user['realname'])-1 ,mb_strlen($user['realname']));
-                    
-                    $tmp_str = "";
-                    for($i=0;$i<mb_strlen($user['realname'])-2;$i++ ){
-                        $tmp_str .="*";
-                    }
-                    
-                    $user['realname'] = $tmp_arr[0].$tmp_str.$tmp_arr[1];
-                }else if(mb_strlen($user['realname']) == 2){
-                    $tmp_str = mb_substr($user['realname'],0,1);
-                    $user['realname'] = $tmp_str.'*';
-                }
-                
-                
-        }
-        
-        
+
+        $user['realname'] = $user['realname'] ?  $this->hiddenName($user['realname']) : "-";
+
         $this->view->assign('result',$result);
         $this->view->assign('users',$user);
         $this->view->assign('search_result',$search_result);
@@ -687,117 +585,56 @@ class User extends Frontend
     
     
     
-    public function getSonsInfo($pid=0,$count)
+    public function getSonsInfo($pid=0,$deep = 0)
     {
         
         $lists =[];
         $items = Db::name('user')->field("user_id,username,realname,isorder")->where('top_openid',$pid)->select();
-        
-        foreach ($items as $key=>$value){
-            $result = $this->getSonInfo1($value['user_id']);
-            
-            $value['son'] = $result;
-            $value['count'] = count($result);
+
+        foreach ($items as  $value){
+
+            if($deep == 0){
+                $value['son']=$this->getSonsInfo($value['user_id'],1);
+                $value['count']=$this->commUser->countLineUsers($value['user_id']);
+            }
             
             if($value['realname']){
-                
-                if(mb_strlen($value['realname']) >= 3){
-                    $tmp_arr=[];
-                    $tmp_arr[0] = mb_substr($value['realname'], 0,1);
-                    $tmp_arr[1] = mb_substr($value['realname'], mb_strlen($value['realname'])-1 ,mb_strlen($value['realname']));
-                    
-                    $tmp_str = "";
-                    for($i=0;$i<mb_strlen($value['realname'])-2;$i++ ){
-                        $tmp_str .="*";
-                    }
-                    
-                    $value['realname'] = $tmp_arr[0].$tmp_str.$tmp_arr[1];
-                }else if(mb_strlen($value['realname']) == 2){
-                    $tmp_str = mb_substr($value['realname'],0,1);
-                    $value['realname'] = $tmp_str.'*';
-                }
-                
+
+                $value['realname'] = $this->hiddenName($value['realname']);
                 
             }
+
             
             $lists[] = $value;
         }
         
-        
-        
-        
         return $lists;
-        
-    //     if($count == 4){
-    //         return [];
-    //     }
-        
-    // 	$lists = [];
-    // 	$items = Db::name('user')->field("user_id,username,realname")->where('top_openid',$pid)->select();
-    // 	$count +=1;
-    // 	foreach ($items as $item){
-    // 			$result = $this->getSonsInfo($item['user_id'],$count);
-    			
-    // 			$item['count'] = count($result);
-    			
-    		    
-    // 		    if(empty($result)){
-    		        
-    // 		        $result[] = ["user_id"=>0,"username"=>"添加","realname"=>"+","son"=>[],"count"=>0];
-    // 		        $result[] = ["user_id"=>0,"username"=>"添加","realname"=>"+","son"=>[],"count"=>0];
-    		        
-    // 		    }else if (count($result) == 1){
-    			    
-    // 			    $result[] = ["user_id"=>0,"username"=>"添加","realname"=>"+","son"=>[],"count"=>0];
-    			    
-    // 			}
-    			
-    // 			$item['son'] = $result;
-    		   
-    // 			$lists[] = $item;
-    // 	}
-    	
 
-    	
-    // 	return $lists;
-    	
-    	
     }
 
-    public function getSonInfo1($pid = 0){
-        $lists =  Db::name('user')->field("user_id,username,realname,isorder")->where('top_openid',$pid)->select();
-        
-        foreach ($lists as $key=>$value){
-            
-            if($value['realname']){
-                
-                if(mb_strlen($value['realname']) >= 3){
-                    $tmp_arr=[];
-                    $tmp_arr[0] = mb_substr($value['realname'], 0,1);
-                    $tmp_arr[1] = mb_substr($value['realname'],mb_strlen($value['realname'])-1 ,mb_strlen($value['realname']));
-                    
-                    $tmp_str = "";
-                    for($i=0;$i<mb_strlen($value['realname'])-2;$i++ ){
-                        $tmp_str .="*";
-                    }
-                    
-                    $lists[$key]['realname'] = $tmp_arr[0].$tmp_str.$tmp_arr[1];
-                    
-                }else if(mb_strlen($value['realname']) == 2){
-                    $tmp_str = mb_substr($value['realname'],0 ,1);
-                    $lists[$key]['realname'] = $tmp_str.'*';
-                }
-                
-                
+
+    //隐藏姓名
+    public function hiddenName($realName)
+    {
+        $hiddenRealName = "";
+        if(mb_strlen($realName) >= 3){
+            $tmp_arr=[];
+            $tmp_arr[0] = mb_substr($realName, 0,1);
+            $tmp_arr[1] = mb_substr($realName,mb_strlen($realName)-1 ,mb_strlen($realName));
+
+            $tmp_str = "";
+            for($i=0;$i<mb_strlen($realName)-2;$i++ ){
+                $tmp_str .="*";
             }
-            
-            
-            
-            
+
+            $hiddenRealName = $tmp_arr[0].$tmp_str.$tmp_arr[1];
+
+        }else if(mb_strlen($realName) == 2){
+            $tmp_str = mb_substr($realName,0 ,1);
+            $hiddenRealName = $tmp_str.'*';
         }
-        
-        
-        return $lists;
+
+        return $hiddenRealName;
     }
 
 
@@ -878,5 +715,29 @@ class User extends Frontend
         $this->view->assign('mimetype', $mimetype);
         $this->view->assign("mimetypeList", \app\common\model\Attachment::getMimetypeList());
         return $this->view->fetch();
+    }
+
+    //电话号码查询用户信息
+    public function getUserByQuery($search)
+    {
+        if(!empty($search['phone'])){
+            $user = Db::name("user")->where("oppen_id",$search['phone'])->find();
+
+            if(empty($user)){
+                $flag = 1;
+                $user =  Db::name("user")->find($this->auth->id);
+                $search_result = "查无".$search['phone']."号码的数据";
+            }
+
+        }else if(!empty($search['user_id'])){
+
+            $user = Db::name("user")->where("user_id",$search['user_id'])->find();
+
+
+        }else{
+            $user = Db::name("user")->find($this->auth->id);
+        }
+
+        return $user;
     }
 }
