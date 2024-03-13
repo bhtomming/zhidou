@@ -348,15 +348,10 @@ class User
     public function updateParentLevel($cur_user,$isorder = null)
     {
 
-        //获取用户升级的参数配置
-        $params = model('param')->get(1);
-
         //获取父节点直推用户信息
         $parent = model('user')->find(['user_id'=>$cur_user['remark']]);
 
-        //是否能正常计算级别
-        $count_level= true;
-
+        //判断用户状态是否为创客级别
         $isCk = $parent['status']<= 5;
 
         //判断创客直推人的开机情况
@@ -371,75 +366,16 @@ class User
                 //判断有几个开机
                 $son_user['isorder'] !=1 ? : $phone_on++;
             }
+            $isCk = (--$phone_on < 2);
 
-            //2个以上开机用户就正常计算级别
-            $count_level = $phone_on > 2;
         }
-
-        //判断要获取当前用户直接上级的左右线还是安置人的左右线
-        $list = $isCk ? $this->getlineusers($cur_user['remark']) : $this->getlineusers($cur_user['top_openid']);
 
         //判断要更新的是直推人级别还是安置人级别
         $user_id =  $isCk ? $parent["user_id"] : $cur_user['top_openid'];
 
-        $leftChildren=[];
-        $rightChildren=[];
+        //计算用户级别,返回更新字段
+        $update_field= $this->countUserLevel($user_id,$cur_user['user_id'],$isorder);
 
-        //用户两条线归0
-        $left_count = $right_count = 0;
-
-        //判断用户的左线卡数
-        if(!empty($list['left'])){
-            self::getchildrenuser($list['left']['user_id'],$leftChildren);
-            $left_count = $list['left']['isorder'] == 1 ? count($leftChildren) + 1 : count($leftChildren);
-            //判断当前用户在上级用户的哪边，并根据是否停机做出调整
-            if($list['left']['user_id'] == $cur_user['user_id'] )
-            {
-                $isorder == 0 ? $left_count--: $left_count++;
-            }
-        }
-
-        //判断用户的右线卡数
-        if(!empty($list['right'])){
-            self::getchildrenuser($list['right']['user_id'],$rightChildren);
-            $right_count = $list['right']['isorder'] == 1 ? count($rightChildren) + 1 : count($rightChildren);
-            //判断当前用户在上级用户的哪边，并根据是否停机做出调整
-            if($list['right']['user_id'] == $cur_user['user_id'] )
-            {
-                $isorder == 0 ? $right_count-- : $right_count++;
-            }
-        }
-
-        $min_count = min($left_count,$right_count);
-
-        $update_field = [
-            'ckjb'=>0,
-            'status'=>0
-        ];
-
-
-
-
-        if($count_level)
-        {
-            if($min_count >= $params['dz9'] && $min_count >= $params['dz10']){
-                $update_field['ckjb'] = 9;
-                $update_field['status'] = 31;
-            }else if($min_count >= $params['dz7'] && $min_count >= $params['dz8']){
-                $update_field['ckjb'] = 7;
-                $update_field['status'] = 21;
-            }else if($min_count >= $params['dz5'] && $min_count >= $params['dz6'] ){
-                $update_field['ckjb'] = 5;
-                $update_field['status'] = 11;
-            }else if($min_count >= $params['dz3'] && $min_count >= $params['dz4'] ){
-                $update_field['ckjb'] = 3;
-                $update_field['status'] = 6;
-            }else if($min_count >= $params['dz1'] && $min_count >= $params['dz2']){
-                $update_field['ckjb'] = 1;
-                $update_field['status'] = 1;
-            }
-        }
-        
         model('user')->where('user_id',$user_id)->update($update_field);
     }
 
@@ -461,5 +397,58 @@ class User
             }
         }
         return $lineUser;
+    }
+
+    //计算用户级别
+    public function countUserLevel($user_id,$child_id=0,$is_order=1)
+    {
+        $underUsers = model('user')->where('top_openid',$user_id)->select();
+
+        $minNum  = 0;
+        if(!empty($underUsers))
+        {
+            foreach ($underUsers as $key => $underUser)
+            {
+                $num = $this->countLineUsers($underUser['user_id']) + 1;
+                $underUser['isorder'] != 0 ? : $num--;
+                //以下为计算开机停机操作时使用
+                if($child_id == $underUser['user_id'])
+                {
+                    $is_order == 0 ? $num-- : $num++;
+                }
+                $key != 0 ? : $minNum = $num;
+                $minNum = $minNum < $num ? $minNum :  $num;
+            }
+            $minNum = count($underUsers) < 2 ? 0 : $minNum;
+        }
+        //获取用户升级的参数配置
+        $params = model('param')->get(1);
+        //默认专员
+        $field = [
+            'ckjb'=>0,
+            'status'=>0
+        ];;
+        if($minNum >= $params['dz9'] && $minNum >= $params['dz10']){
+            //总裁
+            $field['ckjb'] = 9;
+            $field['status'] = 31;
+        }else if($minNum >= $params['dz7'] && $minNum >= $params['dz8']){
+            //总监
+            $field['ckjb'] = 7;
+            $field['status'] = 21;
+        }else if($minNum >= $params['dz5'] && $minNum >= $params['dz6'] ){
+            //经理
+            $field['ckjb'] = 5;
+            $field['status'] = 11;
+        }else if($minNum >= $params['dz3'] && $minNum >= $params['dz4'] ){
+            //店长
+            $field['ckjb'] = 3;
+            $field['status'] = 6;
+        }else if($minNum >= $params['dz1'] && $minNum >= $params['dz2']){
+            //创客
+            $field['ckjb'] = 1;
+            $field['status'] = 1;
+        }
+        return $field;
     }
 }

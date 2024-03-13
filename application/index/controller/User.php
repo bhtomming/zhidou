@@ -571,6 +571,12 @@ class User extends Frontend
 
         $user['realname'] = $user['realname'] ?  $this->hiddenName($user['realname']) : "-";
 
+        //计算用户级别
+        $fields = $this->commUser->countUserLevel($user['user_id']);
+
+        $user['ckjb'] = $fields['ckjb'];
+        $user['status'] = $fields['status'];
+
         $this->view->assign('result',$result);
         $this->view->assign('users',$user);
         $this->view->assign('search_result',$search_result);
